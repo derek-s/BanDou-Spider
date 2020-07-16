@@ -6,16 +6,18 @@ from items import SubjectID
 
 class GetMovieIDSpider(scrapy.Spider):
 
-    # 默认url
-    url_str = "https://movie.a.com/j/new_search_subjects?sort=R&range=0,10&tags=电影&start=0"
-
     name = 'getMovieID'
     allowed_domains = ['a.com']
-    start_urls = ["https://movie.a.com/j/new_search_subjects?sort=R&range=0,10&tags=电影&start=" + str(x) for x in range(2060, 10000, 20)]
+    start_urls = ["https://movie.a.com/j/new_search_subjects?sort=R&range=0,10&tags=电影&start=" + str(x) for x in range(2100, 10000, 20)]
 
     custom_settings = {
         'CONCURRENT_REQUESTS_PER_DOMAIN': 1
     }
+
+    def start_requests(self):
+        for url in self.start_urls:
+            bid = ''.join(random.choice(string.ascii_letters + string.digits) for y in range(11))
+            yield scrapy.Request(url, cookies={"bid": bid})
 
 
     def parse(self, response):
