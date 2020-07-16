@@ -1,0 +1,9 @@
+Bandou/Bandou/__pycache__/__init__.cpython-36.pyc
+Bandou/Bandou/__pycache__/db.cpython-36.pyc
+Bandou/Bandou/__pycache__/items.cpython-36.pyc
+Bandou/Bandou/__pycache__/middlewares.cpython-36.pyc
+Bandou/Bandou/__pycache__/pipelines.cpython-36.pyc
+Bandou/Bandou/__pycache__/settings.cpython-36.pyc
+Bandou/Bandou/spiders/__pycache__/__init__.cpython-36.pyc
+Bandou/Bandou/spiders/__pycache__/getMovieID.cpython-36.pyc
+Bandou/Bandou/spiders/__pycache__/getMovieInfo.cpython-36.pyc
