@@ -153,7 +153,7 @@ USER_AGENT_LIST = [
 
 # MongoDB Setting
 DB_HOSTS = ''
-DB_PORT = '27017'
+DB_PORT = 27017
 DB_USERNAME = ''
 DB_PWD = ''
 
