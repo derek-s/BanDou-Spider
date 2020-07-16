@@ -16,6 +16,7 @@ NEWSPIDER_MODULE = 'Bandou.spiders'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.116 Safari/537.36'
 
+
 USER_AGENT_LIST = [
     "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/712.51 (KHTML, like Gecko) Chrome/77.0.5157.66 Safari712.51 Maxthon/9.1.2.672",
     "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)",
@@ -90,9 +91,10 @@ USER_AGENT_LIST = [
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 10
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
+#CONCURRENT_REQUESTS_PER_DOMAIN = 1
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
@@ -115,9 +117,9 @@ DOWNLOAD_DELAY = 3
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'Bandou.middlewares.BandouDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'Bandou.middlewares.RandomUserAgent': 543,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -158,3 +160,5 @@ DB_PORT = 27017
 DB_USERNAME = ''
 DB_PWD = ''
 
+# proxy
+PROXY = ""
