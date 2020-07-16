@@ -29,6 +29,8 @@ class MovieMeta(scrapy.Item):
     ranks = scrapy.Field() # 评分
     intro = scrapy.Field() # 简介
     IMDb_id = scrapy.Field() # IMDb连接
+    IMDb_url = scrapy.Field() # IMDb url
+    region = scrapy.Field() # 上映地区
 
 
 
