@@ -5,7 +5,7 @@
 
 import random
 from scrapy import signals
-from settings import USER_AGENT_LIST
+from settings import USER_AGENT_LIST, PROXY
 
 
 
@@ -15,3 +15,9 @@ class RandomUserAgent(object):
     def process_request(self, request, spider):
         ua = random.choice(USER_AGENT_LIST)
         request.headers["User-Agent"] = ua
+
+class Proxy(object):
+    # Proxy
+
+    def process_request(self, request, spider):
+        pass
