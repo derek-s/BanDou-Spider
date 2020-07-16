@@ -18,12 +18,12 @@ class BandouPipeline:
             client = MongoClient(DB_HOSTS, DB_PORT)
             db = client.Bandou
             db.authenticate(DB_USERNAME, DB_PWD)
-            self.collection = db.SubjectID
+            self.collection = db.MovieID
 
     def process_item(self, item, spider):
         if spider.name == "getMovieID":
             try:
                 self.collection.insert(dict(item))
-            except:
-                pass
+            except Exception as e:
+                print(e)
         return item
