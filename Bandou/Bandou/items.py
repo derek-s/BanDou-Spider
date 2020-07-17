@@ -31,6 +31,7 @@ class MovieMeta(scrapy.Item):
     IMDb_id = scrapy.Field() # IMDb连接
     IMDb_url = scrapy.Field() # IMDb url
     region = scrapy.Field() # 上映地区
+    year = scrapy.Field() # 年份
 
 
 
