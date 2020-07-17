@@ -6,8 +6,6 @@ from items import MovieMeta
 
 class GetmovieinfoSpider(scrapy.Spider):
 
-
-
     # mongodb
     collection = db.MovieID
     result = collection.find({},{"subject_id": 1})
@@ -30,13 +28,19 @@ class GetmovieinfoSpider(scrapy.Spider):
 
     def get_title(self, response, meta):
         # get movie name
-        rPath = '//*[@id="content"]/h1/span[1]/text()';
+        rPath = '//*[@id="content"]/h1/span[@property="v:itemreviewed"]/text()';
         meta["title"] = response.xpath(rPath).extract_first()
+        return meta
+
+    def get_year(self, response, meta):
+        # get movie year
+        rPath = '//*[@id="content"]/h1/span[@class="year"]/text()'
+        meta['year'] = response.xpath(rPath).extarct_first()[1:4]
         return meta
 
     def get_directors(self, response, meta):
         # get movie directors
-        rPath = '//*[@id="info"]/span[1]/span[2]//a/text()'
+        rPath = '//*[@id="info"]/span/span/a[@rel="v:directedBy"]/text()'
         meta["directors"] = response.xpath(rPath).extract()
         return meta
 
@@ -95,12 +99,12 @@ class GetmovieinfoSpider(scrapy.Spider):
         return meta
 
     def get_imdb_id(self,  response, meta):
-        rPath = '//*[@id="info"]/a/text()'
+        rPath = '//text()[preceding-sibling::span[text()="IMDb链接:"]]/following-sibling::a/text()'
         meta['IMDb_id'] = response.xpath(rPath).extract_first()
         return meta
 
     def get_imdb_url(self, response, meta):
-        rPath = '//*[@id="info"]/a/@href'
+        rPath = '//text()[preceding-sibling::span[text()="IMDb链接:"]]/following-sibling::a/@href'
         meta['IMDb_url'] = response.xpath(rPath).extract_first()
         return meta
 
