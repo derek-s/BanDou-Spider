@@ -18,6 +18,10 @@ class BandouPipeline:
             self.collection = db.MovieID
         if spider.name == "getMovieInfo":
             self.collection = db.MovieInfo
+        if spider.name == "getTVPlayID":
+            self.collection = db.TVPlayID
+        if spider.name == "getTVPlayInfo":
+            self.collection = db.TVPlayInfo
 
     def process_item(self, item, spider):
         if spider.name == "getMovieID":
@@ -26,6 +30,16 @@ class BandouPipeline:
             except Exception as e:
                 print(e)
         if spider.name == "getMovieInfo":
+            try:
+                self.collection.insert(dict(item))
+            except Exception as e:
+                print(e)
+        if spider.name == "getTVPlayID":
+            try:
+                self.collection.insert(dict(item))
+            except Exception as e:
+                print(e)
+        if spider.name == "getTVPlayInfo":
             try:
                 self.collection.insert(dict(item))
             except Exception as e:
