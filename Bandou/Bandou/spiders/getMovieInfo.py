@@ -35,7 +35,7 @@ class GetmovieinfoSpider(scrapy.Spider):
     def get_year(self, response, meta):
         # get movie year
         rPath = '//*[@id="content"]/h1/span[@class="year"]/text()'
-        meta['year'] = response.xpath(rPath).extarct_first()[1:4]
+        meta['year'] = response.xpath(rPath).extract_first()[1:5]
         return meta
 
     def get_directors(self, response, meta):
@@ -131,6 +131,12 @@ class GetmovieinfoSpider(scrapy.Spider):
         meta['cover'] = response.xpath(rPath).extract_first()
         return meta
 
+    def get_actors(self, response, meta):
+        rPath = '//*[@id="info"]/span[@class="actor"]//span[@class="attrs"]//a/text()'
+        meta['actors'] = response.xpath(rPath).extract()
+        return meta
+
+
     def parse(self, response):
         movieMeta = MovieMeta()
         movieMeta['type'] = "电影"
@@ -149,5 +155,7 @@ class GetmovieinfoSpider(scrapy.Spider):
         self.get_imdb_id(response, movieMeta)
         self.get_intro(response, movieMeta)
         self.get_cover(response, movieMeta)
+        self.get_year(response, movieMeta)
+        self.get_actors(response, movieMeta)
 
         yield movieMeta
