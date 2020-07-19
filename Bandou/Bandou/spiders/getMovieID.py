@@ -11,6 +11,7 @@ class GetMovieIDSpider(scrapy.Spider):
     allowed_domains = ['a.com']
 
     start_urls = []
+    cus_retry_times = 20
 
     def start_requests(self):
         for type in TAG_TYPE:
