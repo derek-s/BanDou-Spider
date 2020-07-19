@@ -12,6 +12,8 @@ class GettvplayinfoSpider(scrapy.Spider):
     # subjectIDList = [i['subject_id'] for i in result];
     # print(subjectIDList)
 
+    cus_retry_times = 100
+
     name = 'getTVPlayInfo'
     allowed_domains = ['a.com']
     start_urls = ['https://movie.a.com/subject/%s/' % i['subject_id'] for i in result]

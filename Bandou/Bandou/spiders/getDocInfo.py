@@ -2,19 +2,19 @@ import random
 import scrapy
 import string
 from db import db
-from items import MovieMeta
+from items import DocMeta
 
-class GetmovieinfoSpider(scrapy.Spider):
+class GetdocinfoSpider(scrapy.Spider):
 
     # mongodb
-    collection = db.MovieID
+    collection = db.DocID
     result = collection.find({},{"subject_id": 1})
     # subjectIDList = [i['subject_id'] for i in result];
     # print(subjectIDList)
 
     cus_retry_times = 100
 
-    name = 'getMovieInfo'
+    name = 'getDocInfo'
     allowed_domains = ['a.com']
     start_urls = ['https://movie.a.com/subject/%s/' % i['subject_id'] for i in result]
 
@@ -86,8 +86,12 @@ class GetmovieinfoSpider(scrapy.Spider):
 
     def get_mins(self, response, meta):
         # get movie mins
-        rPath = '//*[@id="info"]//span[@property="v:runtime"]/text()'
-        meta['mins'] = response.xpath(rPath).extract_first()
+        rPath = '//text()[preceding-sibling::span[text()="单集片长:"]][following-sibling::br][1]'
+        data = response.xpath(rPath).extract_first()
+        if data:
+            meta['mins'] = data.strip()
+        else:
+            meta['mins'] = None
         return meta
 
     def get_alias(self, response, meta):
@@ -138,10 +142,32 @@ class GetmovieinfoSpider(scrapy.Spider):
         meta['actors'] = response.xpath(rPath).extract()
         return meta
 
+    def get_episode(self, response, meta):
+        rPath = '//text()[preceding-sibling::span[text()="集数:"]][following-sibling::br][1]'
+        data = response.xpath(rPath).extract_first()
+        if data:
+            meta["episode"] = data.strip()
+        else:
+            meta["episode"] = None
+        return meta
+
+    def get_season(self, response, meta):
+        rPath = '//*[@id="season"]/option[@selected="selected"]/text()'
+        data = response.xpath(rPath).extract_first()
+        if data:
+            meta['season'] = data.strip()
+        else:
+            rPath = '//text()[preceding-sibling::span[text()="季数:"]][following-sibling::br][1]'
+            data = response.xpath(rPath).extract_first()
+            if data:
+                meta['season'] = data.strip()
+            else:
+                meta['season'] = None
+        return meta
 
     def parse(self, response):
-        movieMeta = MovieMeta()
-        movieMeta['type'] = "电影"
+        movieMeta = DocMeta()
+        movieMeta['type'] = "纪录片"
         self.get_alias(response, movieMeta)
         self.get_subject_id(response, movieMeta)
         self.get_title(response, movieMeta)
@@ -159,5 +185,6 @@ class GetmovieinfoSpider(scrapy.Spider):
         self.get_cover(response, movieMeta)
         self.get_year(response, movieMeta)
         self.get_actors(response, movieMeta)
-
+        self.get_episode(response, movieMeta)
+        self.get_season(response, movieMeta)
         yield movieMeta

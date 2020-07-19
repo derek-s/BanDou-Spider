@@ -2,7 +2,7 @@ import random
 import scrapy
 import string
 from db import db
-from items import TVPlayMeta
+from items import AnimeMeta
 
 class GetanimeinfoSpider(scrapy.Spider):
 
@@ -15,6 +15,8 @@ class GetanimeinfoSpider(scrapy.Spider):
     name = 'getAnimeInfo'
     allowed_domains = ['a.com']
     start_urls = ['https://movie.a.com/subject/%s/' % i['subject_id'] for i in result]
+
+    cus_retry_times = 100
 
     def start_requests(self):
         for url in self.start_urls:
@@ -164,8 +166,8 @@ class GetanimeinfoSpider(scrapy.Spider):
         return meta
 
     def parse(self, response):
-        movieMeta = TVPlayMeta()
-        movieMeta['type'] = "电视剧"
+        movieMeta = AnimeMeta()
+        movieMeta['type'] = "动漫"
         self.get_alias(response, movieMeta)
         self.get_subject_id(response, movieMeta)
         self.get_title(response, movieMeta)
