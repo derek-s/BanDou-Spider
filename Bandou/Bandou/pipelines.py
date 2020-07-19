@@ -26,6 +26,10 @@ class BandouPipeline:
             self.collection = db.AnimeID
         if spider.name == "getAnimeInfo":
             self.collection = db.AnimeInfo
+        if spider.name == "getDocID":
+            self.collection = db.DocID
+        if spider.name == "getDocInfo":
+            self.collection = db.DocInfo
 
     def process_item(self, item, spider):
         if spider.name == "getMovieID":
@@ -54,6 +58,16 @@ class BandouPipeline:
             except Exception as e:
                 print(e)
         if spider.name == "getAnimeInfo":
+            try:
+                self.collection.insert(dict(item))
+            except Exception as e:
+                print(e)
+        if spider.name == "getDocID":
+            try:
+                self.collection.insert(dict(item))
+            except Exception as e:
+                print(e)
+        if spider.name == "getDocInfo":
             try:
                 self.collection.insert(dict(item))
             except Exception as e:

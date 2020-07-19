@@ -86,19 +86,19 @@ USER_AGENT_LIST = [
 # ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
-#CONCURRENT_REQUESTS = 32
+# CONCURRENT_REQUESTS = 5
 
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 10
+#DOWNLOAD_DELAY = 2
 # The download delay setting will honor only one of:
-#CONCURRENT_REQUESTS_PER_DOMAIN = 16
+#CONCURRENT_REQUESTS_PER_DOMAIN = 5
 #CONCURRENT_REQUESTS_PER_DOMAIN = 1
-#CONCURRENT_REQUESTS_PER_IP = 16
+# CONCURRENT_REQUESTS_PER_IP = 5
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = True
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -118,7 +118,8 @@ DOWNLOAD_DELAY = 10
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'Bandou.middlewares.RandomUserAgent': 543,
+    'Bandou.middlewares.Proxy': 300,
+    'Bandou.middlewares.RandomUserAgent': 543,
 }
 
 # Enable or disable extensions
@@ -137,12 +138,12 @@ ITEM_PIPELINES = {
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 5
+# AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY = 60
+# AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
 # each remote server
-AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
+# AUTOTHROTTLE_TARGET_CONCURRENCY = 1.0
 # Enable showing throttling stats for every response received:
 #AUTOTHROTTLE_DEBUG = False
 
@@ -161,4 +162,23 @@ DB_USERNAME = ''
 DB_PWD = ''
 
 # proxy
-PROXY = ""
+PROXY_IP = ''
+PROXY_USERNAME = ''
+PROXY_PWD = ''
+
+
+TAG_TYPE = ['剧情', '喜剧', '动作', '爱情', '科幻', '动画', '悬疑',
+            '惊悚', '恐怖', '犯罪', '同性', '音乐', '歌舞', '传记',
+            '历史', '战争', '西部', '奇幻', '冒险', '灾难', '武侠']
+TAG_ZONE = ['中国大陆', '美国', '香港', '台湾', '日本',
+            '韩国', '英国', '法国', '德国', '意大利',
+            '西班牙', '印度', '泰国', '俄罗斯', '伊朗',
+            '加拿大', '澳大利亚', '爱尔兰', '瑞典', '巴西', '丹麦']
+
+
+DOWNLOAD_DELAY = 0.2
+RANDOMIZE_DOWNLOAD_DELAY = True
+AUTOTHROTTLE_ENABLED = True
+AUTOTHROTTLE_START_DELAY = 0.2
+CONCURRENT_REQUESTS_PER_DOMAIN = 10
+CONCURRENT_REQUESTS = 500

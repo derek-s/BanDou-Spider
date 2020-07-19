@@ -79,3 +79,26 @@ class AnimeMeta(scrapy.Item):
     actors = scrapy.Field() # 演员
     season = scrapy.Field() # 季
     episode = scrapy.Field() # 集
+
+class DocMeta(scrapy.Item):
+    # 条目数据
+    subject_id = scrapy.Field()  # 条目id
+    type = scrapy.Field()  # 类别（电影、电视剧）
+    cover = scrapy.Field()  # 封面
+    title = scrapy.Field()  # 标题
+    directors = scrapy.Field()  # 导演
+    writer = scrapy.Field()  # 编剧
+    lang = scrapy.Field()  # 语言
+    genres = scrapy.Field()  # 类型（剧情/犯罪）
+    release_date = scrapy.Field()  # 上映时间
+    mins = scrapy.Field()  # 片长
+    alias = scrapy.Field()  # 别名
+    ranks = scrapy.Field()  # 评分
+    intro = scrapy.Field()  # 简介
+    IMDb_id = scrapy.Field()  # IMDb连接
+    IMDb_url = scrapy.Field()  # IMDb url
+    region = scrapy.Field()  # 上映地区
+    year = scrapy.Field()  # 年份
+    actors = scrapy.Field()  # 演员
+    season = scrapy.Field()  # 季
+    episode = scrapy.Field()  # 集
